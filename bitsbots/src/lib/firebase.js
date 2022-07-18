@@ -1,14 +1,13 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import "firebase/firestore";
-import "firebase/auth";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+import "firebase/compat/analytics";
+import "firebase/compat/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// here i want to import the seed file
-import { seedDatabase } from "../seed";
+// // here i want to import the seed file
+// import { seedDatabase } from "../seed";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -22,15 +21,16 @@ const firebaseConfig = {
   measurementId: "G-QRN38G4HFQ",
 };
 
-// Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(firebaseApp);
-const FieldValue = initializeApp.firebase;
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-// here is where i want to call the seed file (Only once)
-// seedDatabase(firebase);
+const db = firebaseApp.firestore();
+const analytics = firebaseApp.analytics();
+const auth = firebase.auth();
 
-console.log("firebaseApp", firebaseApp);
-seedDatabase(firebaseApp);
+const FieldValue = db.FieldValue;
 
-export { firebaseApp, analytics, FieldValue };
+console.log(db);
+
+// seedDatabase(db, "db");
+
+export { db, analytics, FieldValue, auth };
